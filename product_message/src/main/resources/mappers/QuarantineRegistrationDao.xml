@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyz.product_message.dao.QuarantineRegistrationDao">
+
+    <resultMap id="BaseQRResultMap" type="quarantineRegisterion">
+        <result column="gr_id" property="grId"/>
+        <result column="gr_time" property="grTime"/>
+        <result column="gr_img" property="grImg"/>
+        <result column="gr_mechanism" property="grMechanism"/>
+        <result column="gr_batch_id" property="grBatchId"/>
+        <result column="b_qualified" property="bQualified"/>
+    </resultMap>
+
+    <sql id="Base_QR_Message">
+    gr_id,gr_time,gr_img,gr_mechanism,gr_batch_id,b_qualified
+    </sql>
+
+    <insert id="saveQRMessage">
+        insert into quarantine_registration (gr_id, gr_time, gr_img,
+                                             gr_mechanism, gr_batch_id, b_qualified)
+        values (#{grId}, #{grTime}, #{grImg},
+                #{grMechanism}, #{grBatchId}, #{bQualified})
+    </insert>
+    <update id="updQRMessage" parameterType="quarantineRegisterion">
+        update quarantine_registration
+            <set>
+                <if test="grTime != null and grTime != ''">
+                    gr_time=#{grTime},
+                </if>
+                <if test="grImg != null and grImg != ''">
+                    gr_img=#{grImg},
+                </if>
+                <if test="grMechanism != null and grMechanism != ''">
+                    gr_mechanism=#{grMechanism},
+                </if>
+                <if test="grBatchId != null and grBatchId != ''">
+                    gr_batch_id=#{grBatchId},
+                </if>
+                <if test="bQualified != null and bQualified != ''">
+                    b_qualified=#{bQualified}
+                </if>
+            </set>
+            where gr_id=#{grId}
+    </update>
+
+    <select id="selArrMessage" resultMap="BaseQRResultMap">
+        select <include refid="Base_QR_Message"/>
+        from quarantine_registration
+        <where>
+            <if test="grMechanism!=null">
+                and gr_mechanism like concat('%',#{grMechanism},'%')
+            </if>
+            <if test="bQualified!=null">
+                and b_qualified = #{bQualified}
+            </if>
+        </where>
+    </select>
+</mapper>

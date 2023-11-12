@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyz.product_message.dao.BatchMapper">
+    <resultMap id="BaseBatchMap" type="managerBatch">
+        <id column="b_serial_id" property="bSerialId"/>
+        <result column="b_desc" property="bDesc"/>
+        <result column="b_quarantine" property="bQuarantine"/>
+        <result column="b_qualified" property="bQualified"/>
+        <result column="b_time" property="bTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        b_serial_id
+        , b_desc, b_quarantine, b_qualified, b_time
+    </sql>
+
+    <select id="findAll" resultMap="BaseBatchMap">
+        select <include refid="Base_Column_List"/>
+        from manager_batch
+    </select>
+</mapper>

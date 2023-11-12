@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyz.product_message.dao.ext.DiseaseRecordExtMapper">
+
+    <resultMap id="BaseDRResultMap" type="diseaseRecordExt">
+        <!--映射一对一的查询结果集 交互类：diseaseRecordExt，将managerDisease属性接收过来-->
+        <id column="dr_id" property="drId"/>
+        <result column="dr_animal_id" property="drAnimalId"/>
+        <result column="dr_desc" property="drDesc"/>
+        <result column="dr_cure" property="drCure"/>
+        <result column="dr_time" property="drTime"/>
+        <result column="dr_status" property="drStatus"/>
+        <result column="dr_d_id" property="drDId"/>
+        <association property="disease" javaType="managerDisease" resultMap="com.zyz.product_message.dao.ManagerDiseaseMapper.BaseMDResultMap"/>
+    </resultMap>
+
+    <sql id="Base_DRMessage">
+        dr_id,dr_animal_id,dr_desc,dr_cure,dr_time,dr_status,dr_d_id
+    </sql>
+    <select id="declareRecord" resultMap="BaseDRResultMap">
+        SELECT *
+        FROM manager_disease a inner join disease_record b
+        on a.d_id = b.dr_d_id
+        <if test="drStatus!=null">
+            AND dr_status = #{drStatus}
+        </if>
+        <if test="drDId!=null">
+            AND dr_d_id = #{drDId}
+        </if>
+    </select>
+</mapper>

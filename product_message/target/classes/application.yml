@@ -1,0 +1,31 @@
+server:
+  port: 9999
+
+spring:
+#  数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pig?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: '0107'
+
+  #返回统一格式的时间json字符串
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+
+mybatis:
+  configuration:
+    #控制台打印SQL日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.zyz.product_message.pojo
+  mapper-locations: classpath:mappers/**/*.xml
+
+#驼峰映射
+#配置类型别名所在包
+#mapper映射文件所在的位置

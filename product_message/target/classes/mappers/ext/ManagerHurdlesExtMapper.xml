@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyz.product_message.dao.ext.ManagerHurdlesExtMapper">
+    <!--映射一对一的响应结果集-->
+    <resultMap id="HurdlesAndHousesMap" type="managerHurdlesExt" extends="com.zyz.product_message.dao.ManagerHurdlesMapper.BaseResultMap">
+        <association property="managerFenceHouse" resultMap="com.zyz.product_message.dao.ManagerFenceHouseMapper.BaseResultMap"/>
+    </resultMap>
+
+    <!--条件查询栏圈以及栏舍信息-->
+    <select id="selectHurdlesAndFenceHouse" resultMap="HurdlesAndHousesMap">
+        select * from manager_hurdles mh
+            left join manager_fence_house mfh on mh.h_fence_id = mfh.fh_id
+        <where>
+            <if test="hName != null">
+                mh.h_name like concat('%',#{hName},'%')
+            </if>
+            <if test="hMax != null">
+                and mh.h_max = #{hMax}
+            </if>
+            <if test="fhName != null">
+                and mfh.fh_name = #{fhName}
+            </if>
+            <if test="hEnable != null">
+                and mh.h_enable = #{hEnable}
+            </if>
+        </where>
+        order by mh.h_time desc
+    </select>
+</mapper>

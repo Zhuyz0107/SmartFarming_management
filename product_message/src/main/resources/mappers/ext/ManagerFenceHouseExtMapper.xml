@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyz.product_message.dao.ext.ManagerFenceHouseExtMapper">
+    <!--映射一对多的响应结果集-->
+    <resultMap id="HousesAndHurdlesMap" type="managerFenceHouseExt" extends="com.zyz.product_message.dao.ManagerFenceHouseMapper.BaseResultMap">
+        <collection property="mhs" resultMap="com.zyz.product_message.dao.ManagerHurdlesMapper.BaseResultMap"/>
+    </resultMap>
+
+    <!--根据栏舍编号查询栏舍信息以及栏舍下的栏圈信息-->
+    <select id="selectHouseAndHurdlesById" resultMap="HousesAndHurdlesMap">
+        SELECT *
+        FROM manager_fence_house mfs
+            LEFT JOIN manager_hurdles mh ON mfs.fh_id = mh.h_fence_id
+        WHERE mfs.fh_id = #{fhId}
+    </select>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyz.product_message.dao.ManagerDiseaseMapper">
+    <resultMap id="BaseMDResultMap" type="managerDisease">
+        <!--id的映射方式和result的映射方式不同，属性用id标签-->
+        <id column="d_id" property="dId"/>
+        <result column="d_name" property="dName"/>
+        <result column="d_desc" property="dDesc"/>
+        <result column="d_type" property="dType"/>
+        <result column="d_etiology" property="dEtiology"/>
+        <result column="d_symptom" property="dSymptom"/>
+        <result column="d_prevention" property="dPrevention"/>
+    </resultMap>
+
+    <sql id="BaseMD_List">
+        d_id,d_name,d_desc,d_type,d_etiology,d_symptom,d_prevention
+    </sql>
+
+    <select id="findAll" resultMap="BaseMDResultMap">
+        select <include refid="BaseMD_List"/>
+        from manager_disease
+    </select>
+</mapper>

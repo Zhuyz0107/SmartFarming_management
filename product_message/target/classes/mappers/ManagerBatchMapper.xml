@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyz.product_message.dao.ManagerBatchMapper">
+    <!--基础查询结果集 pojo类的基类信息 手动设置别名对应属性-->
+    <resultMap id="BaseResultMap" type="managerBatch">
+        <result column="b_serial_id" property="bSerialId"/>
+        <result column="b_desc" property="bDesc"/>
+        <result column="b_quarantine" property="bQuarantine"/>
+        <result column="b_qualified" property="bQualified"/>
+        <result column="b_time" property="bTime"/>
+    </resultMap>
+    <!--基础sql字段-->
+    <sql id="Base_Column_List">
+        b_serial_id,b_desc, b_quarantine, b_qualified, b_time
+    </sql>
+    <!--查询所有未检疫的批次信息-->
+    <select id="selectAllUnquarantined" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from manager_batch
+        where b_quarantine='未检疫'
+    </select>
+
+    <!--根据批次编号查询批次信息-->
+    <select id="selectByPrimaryKey" resultType="managerBatch">
+        select <include refid="Base_Column_List"/>
+        from manager_batch
+        where b_serial_id = #{bSerialId}
+    </select>
+
+    <!--查询所有批次信息-->
+    <select id="selectAllBatches" resultType="managerBatch">
+        select <include refid="Base_Column_List"/>
+        from manager_batch
+    </select>
+
+    <!--根据批次编号修改批次检疫状态为已检疫和检疫合格状态-->
+    <update id="updateBQuarantineAndBQualified">
+        update manager_batch
+        set b_quarantine = '已检疫',
+            b_qualified = #{bQualified}
+        where b_serial_id = #{bSerialId}
+    </update>
+</mapper>

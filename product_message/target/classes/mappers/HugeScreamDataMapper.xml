@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyz.product_message.dao.HugeScreamDataMapper">
+<!--"栏舍", "栏圈", "动物", "冷库", "员工"-->
+    <select id="totalPartNum" resultType="integer">
+        SELECT COUNT(*)
+        from manager_fence_house
+        UNION
+        SELECT COUNT(*)
+        from manager_hurdles
+        UNION
+        SELECT COUNT(*)
+        from manager_animal
+        UNION
+        SELECT COUNT(*)
+        from manager_freezer
+        UNION
+        SELECT COUNT(*)
+        from base_account
+    </select>
+
+    <!--重量-->
+    <select id="selectWeight" resultType="map">
+        SELECT count(a_weight <![CDATA[<]]>30 or null) as '30以下',
+        count(a_weight <![CDATA[>]]>50 or null) as '50以上',
+        count((a_weight <![CDATA[>=]]> 30 AND a_weight <![CDATA[<=]]> 50) or NULL) as '30-50之间'
+        FROM manager_animal
+    </select>
+
+    <!--病症-->
+    <select id="selectDiseasePart" resultType="map">
+        SELECT d_name,count(d_id) as 'sum'
+        from manager_disease md
+                 INNER JOIN disease_record dr
+                            ON md.d_id=dr.dr_d_id
+        GROUP BY md.d_id
+    </select>
+    <!--统计图-->
+    <select id="selectAllPage" resultType="java.util.Map">
+        SELECT MONTH(isr_time) AS "月份", SUM(isr_num) AS "销售总数"
+        FROM issue_record
+        where YEAR(isr_time) = YEAR(NOW())
+        GROUP BY MONTH(isr_time);
+    </select>
+
+
+</mapper>

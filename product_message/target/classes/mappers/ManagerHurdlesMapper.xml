@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyz.product_message.dao.ManagerHurdlesMapper">
+    <!--基础查询结果集-->
+    <resultMap id="BaseResultMap" type="managerHurdles">
+        <id property="hId" column="h_id"/>
+        <result property="hName" column="h_name"/>
+        <result property="hDesc" column="h_desc"/>
+        <result property="hMax" column="h_max"/>
+        <result property="hSaved" column="h_saved"/>
+        <result property="hTime" column="h_time"/>
+        <result property="hEnable" column="h_enable"/>
+        <result property="hFull" column="h_full"/>
+        <result property="hFenceId" column="h_fence_id"/>
+    </resultMap>
+
+    <!--基础sql字段-->
+    <sql id="Base_Column_List">
+        h_id
+        , h_name, h_desc, h_max, h_saved,
+        h_time, h_enable, h_full, h_fence_id
+    </sql>
+
+    <!--根据编号修改栏圈的状态-->
+    <update id="updateHEnable">
+        update manager_hurdles
+        set h_enable = #{hEnable}
+        where h_id = #{hId}
+    </update>
+
+    <!--根据栏圈编号修改栏圈信息-->
+    <update id="updateByPrimaryKey">
+        update manager_hurdles
+        set h_name     = #{hName},
+            h_desc     = #{hDesc},
+            h_max      = #{hMax},
+            h_saved    = #{hSaved},
+            h_time     = #{hTime},
+            h_enable   = #{hEnable},
+            h_full     = #{hFull},
+            h_fence_id = #{hFenceId}
+        where h_id = #{hId}
+    </update>
+
+    <!--根据栏舍编号查询栏圈数量-->
+    <select id="selectCountByFhId" resultType="int">
+        select count(*)
+        from manager_hurdles
+        where h_fence_id = #{fhId}
+    </select>
+
+    <!--查询所有未满以及未禁用的栏圈信息-->
+    <select id="selectAllEnableHurdles" resultType="managerHurdles">
+        select
+        <include refid="Base_Column_List"/>
+        from manager_hurdles
+        where h_enable = '可用' and h_full = '未满'
+    </select>
+
+    <!--查询所有的栏圈容量-->
+    <select id="selectAllMax" resultType="integer">
+        select distinct h_max
+        from manager_hurdles
+    </select>
+
+    <!--根据栏圈编号查询栏圈信息-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from manager_hurdles
+        where h_id = #{hId}
+
+
+    </select>
+    <!--查询能否被批量删除的信息-->
+    <select id="findByFhid" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from manager_hurdles
+        where h_fence_id = #{fhId}
+    </select>
+</mapper>

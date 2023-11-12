@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyz.product_message.dao.ManagerFenceHouseMapper">
+    <!--基础查询结果集-->
+    <resultMap id="BaseResultMap" type="managerFenceHouse">
+        <id column="fh_id" property="fhId"/>
+        <result column="fh_name" property="fhName"/>
+        <result column="fh_desc" property="fhDesc"/>
+        <result column="fh_time" property="fhTime"/>
+    </resultMap>
+
+    <!--基础sql字段-->
+    <sql id="Base_Column_List">
+        fh_id, fh_name, fh_desc, fh_time
+    </sql>
+
+    <!--条件查询栏舍信息-->
+    <select id="queryAllHouses" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from manager_fence_house
+        <where>
+            <if test="fhName != null">
+                fh_name like concat('%',#{fhName},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--根据栏舍名称查询栏舍信息-->
+    <select id="selectByFhName" resultType="managerFenceHouse">
+        select <include refid="Base_Column_List"/>
+        from manager_fence_house
+        where fh_name = #{fhName}
+    </select>
+
+    <!--根据栏舍id修改栏舍信息-->
+    <update id="updateByPrimaryKey" parameterType="managerFenceHouse">
+        update manager_fence_house
+        set fh_name = #{fhName},
+            fh_desc = #{fhDesc},
+            fh_time = #{fhTime}
+        where fh_id = #{fhId}
+    </update>
+
+    <!--添加栏舍信息-->
+    <insert id="insert" parameterType="managerFenceHouse">
+        insert into manager_fence_house(fh_id, fh_name, fh_desc,fh_time)
+        values(#{fhId}, #{fhName}, #{fhDesc},#{fhTime})
+    </insert>
+
+    <!--根据栏舍编号查询栏舍信息-->
+    <select id="selectByPrimaryKey" resultType="managerFenceHouse">
+        select
+        <include refid="Base_Column_List"/>
+        from manager_fence_house
+        where fh_id = #{fhId}
+    </select>
+
+    <!--根据栏舍编号删除栏舍信息-->
+    <delete id="deleteByPrimaryKey" parameterType="string">
+        delete
+        from manager_fence_house
+        where fh_id = #{fhId}
+    </delete>
+
+    <!--批量删除栏舍信息-->
+    <delete id="deleteBatchByIds">
+        delete
+        from manager_fence_house
+        where fh_id in
+        <foreach collection="ids" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--查询所有栏圈信息-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from manager_fence_house
+    </select>
+
+    <!--数据大屏：查询所有的资源-->
+    <select id="countAllResources" resultType="integer">
+        SELECT COUNT(*)
+        from manager_fence_house
+        UNION
+        SELECT COUNT(*)
+        from manager_hurdles
+        UNION
+        SELECT COUNT(*)
+        from manager_animal
+        UNION
+        SELECT COUNT(*)
+        from manager_freezer
+        UNION
+        SELECT COUNT(*)
+        from base_account
+    </select>
+</mapper>

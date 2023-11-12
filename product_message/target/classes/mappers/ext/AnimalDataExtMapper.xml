@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyz.product_message.dao.ext.AnimalDataExtMapper">
+
+    <resultMap id="BaseMDataMap" type="managerAnimalExt">
+        <id column="a_animal_id" property="aAnimalId"/>
+        <result column="a_weight" property="aWeight"/>
+        <result column="a_gender" property="aGender"/>
+        <result column="a_healthy" property="aHealthy"/>
+        <result column="a_status" property="aStatus"/>
+        <result column="a_inoculate" property="aInoculate"/>
+        <result column="a_time" property="aTime"/>
+        <result column="a_batch_id" property="aBatchId"/>
+        <result column="a_hurdles_id" property="aHurdlesId"/>
+        <result column="h_name" property="managerHurdles"/>
+        <result column="fh_name" property="managerFenceHouse"/>
+        <result column="q_image_url" property="url"/>
+        <association property="managerBatch"  resultMap="com.zyz.product_message.dao.BatchMapper.BaseBatchMap"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        a_animal_id, a_weight, a_gender, a_healthy, a_status, a_inoculate, a_time, a_batch_id, a_hurdles_id
+    </sql>
+
+    <select id="selectAllData" resultMap="BaseMDataMap">
+        select a.*,b.h_name,c.fh_name,e.q_image_url,d.*
+        from manager_animal a
+        LEFT JOIN manager_hurdles b ON a.a_hurdles_id = b.h_id
+        LEFT JOIN manager_fence_house c ON b.h_fence_id = c.fh_id
+        LEFT JOIN manager_batch d ON d.b_serial_id = a.a_batch_id
+        LEFT JOIN manager_qrcode e ON a.a_animal_id = e.q_animal_id
+        <where>
+            <if test="aHealthy!=null">
+               and  a_healthy=#{aHealthy}
+            </if>
+            <if test="aGender!=null">
+               and a_gender=#{aGender}
+            </if>
+        </where>
+    </select>
+    <select id="selectById" resultType="managerAnimal">
+        select
+        <include refid="Base_Column_List"></include>
+        from manager_animal
+        where a_animal_id = #{animalId}
+    </select>
+</mapper>

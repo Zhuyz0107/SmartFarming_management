@@ -1,0 +1,40 @@
+/*
+ * @Description: 基础样式变量
+ * @Author: Ronda
+ * @Date: 2020-11-27 12:14:18
+ * @LastEditors: Ronda
+ * @LastEditTime: 2022-03-15 15:09:18
+ */
+
+$blue: #324157;
+$light-blue: #3a71a8;
+$red: #c03639;
+$pink: #e65d6e;
+$green: #30b08f;
+$tiffany: #4ab7bd;
+$yellow: #fec171;
+$panGreen: #30b08f;
+
+// sidebar
+$menuText: #666;
+$menuActiveText: #666;
+$subMenuActiveText: #999;
+
+$menuBg: #ffffff;
+$menuHover: #f3f3f9;
+
+$subMenuBg: #ffffff;
+$subMenuHover: #f3f3f9;
+
+$sideBarWidth: 210px;
+
+:export {
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  sideBarWidth: $sideBarWidth;
+}

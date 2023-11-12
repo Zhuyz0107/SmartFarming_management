@@ -1,0 +1,202 @@
+/*
+ * @Description: 用户样式
+ * @Author: Ronda
+ * @Date: 2021-07-29 15:38:56
+ * @LastEditors: Ronda
+ * @LastEditTime: 2022-04-01 20:04:39
+ */
+html {
+  font-size: 14px;
+  color: #666666;
+}
+
+/* 1. 菜单样式重置 */
+/* 1.1 菜单项行高 */
+.el-submenu__title,
+.el-menu-item {
+  height: 42px !important;
+  line-height: 42px !important;
+}
+/* 1.2 菜单项激活背景色 */
+#app .sidebar-container .el-submenu .el-menu-item.is-active,
+.el-menu-item.is-active {
+  background-color: #f3f3f9 !important;
+}
+#app .sidebar-container .is-active > .el-submenu__title {
+  color: rgb(102, 102, 102) !important;
+}
+/* 1.3 解决顶部固定后右侧内边距 */
+.el-popup-parent--hidden .fixed-header {
+  padding-right: 0 !important ;
+}
+/* 1.4 页面提示框 */
+.page_info {
+  background-color: #efefef;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  margin-bottom: 0.5em;
+  font-size: 12px;
+}
+.page_info > .title {
+  font-weight: bold;
+  color: red;
+}
+/* 1.5表格容器 */
+.page_header_container {
+  background-color: #f3f3f9;
+  padding: 1em 0.5em;
+  border-radius: 5px;
+}
+.el-checkbox__label {
+  font-size: 12px !important;
+}
+/* 页头 */
+.page_header {
+  padding-bottom: 0.5em;
+}
+/* 按钮容器 */
+.btns {
+  margin-bottom: 0.5em;
+  text-align: right;
+}
+/*分页容器*/
+.page {
+  margin-top: 0.5em;
+  text-align: right;
+}
+/* 清理浮动 */
+.clear {
+  clear: both;
+}
+/* 子标题 */
+.sub_title {
+  color: rgb(139, 133, 133);
+  font-size: 12px;
+  /* border-bottom: 1px solid #ccc; */
+  background-color: #ededed;
+  padding: 1em 0.5em;
+  border-radius: 3px;
+  margin-bottom: 1em;
+}
+.btns .el-form-item,
+.btns .el-form-item--small.el-form-item {
+  margin-bottom: 0;
+}
+td .el-button--mini {
+  padding: 0;
+}
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 100px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
+
+/* 自定义导航字体大小 */
+.el-page-header__content {
+  font-size: 16px;
+}
+
+/* 自定义模态框样式类 */
+.el-dialog__body img {
+  width: 100% !important;
+}
+.customer_modal .el-dialog__header {
+  background-color: #214c90;
+  padding: 15px 20px !important;
+}
+.customer_modal .el-dialog__header .el-dialog__title {
+  color: #ffffff;
+}
+.el-dialog__headerbtn {
+  position: absolute;
+  top: 15px;
+}
+.customer_modal .el-dialog__footer {
+  border-top: 1px solid #214c90;
+}
+.customer_modal .el-dialog__close,
+.customer_modal .el-dialog__headerbtn:hover .el-dialog__close {
+  color: #ffffff;
+}
+.el-dialog__body {
+  padding: 10px 20px;
+}
+
+#el-drawer__title {
+  border-bottom: 1px solid#ededed;
+  padding-bottom: 1em;
+  margin-bottom: 0;
+}
+.el-drawer__body {
+  overflow-y: scroll;
+}
+
+.tips {
+  font-size: 12px;
+  color: red;
+  line-height: 3em;
+}
+
+.red_info {
+  color: red;
+  font-size: 12px;
+}
+
+/* 展示 */
+.info:not(".user_details") {
+  line-height: 2em;
+  display: flex;
+}
+.info > .label {
+  padding: 0 0.5em;
+  width: 100px;
+  font-weight: bold;
+  text-align: right;
+}
+.info > .label::after {
+  content: "：";
+}
+.info > .val {
+  flex: 1;
+}
+
+/* 自定义表单输入框大小 */
+.btns .el-input__inner {
+  width: 150px;
+}
+
+/* 自定义表单时间选择器的大小 */
+.btns .el-range-editor {
+  width: 370px;
+}
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}

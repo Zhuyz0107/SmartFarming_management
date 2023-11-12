@@ -1,0 +1,30 @@
+/*
+ * @Description: Element样式设置
+ * @Author: Ronda
+ * @Date: 2020-11-10 10:37:52
+ * @LastEditors: Ronda
+ * @LastEditTime: 2022-03-15 15:10:33
+ */
+
+/* theme color */
+$--color-primary: #214c90;
+
+$--color-success: #13ce66;
+$--color-warning: #ffba00;
+$--color-danger: #ff4949;
+
+$--button-font-weight: 400;
+
+$--border-color-light: #dfe4ed;
+$--border-color-lighter: #e6ebf5;
+
+$--table-border: 1px solid #dfe6ec;
+
+/* icon font path, required */
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+:export {
+  theme: $--color-primary;
+}
